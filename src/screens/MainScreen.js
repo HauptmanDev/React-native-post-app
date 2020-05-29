@@ -8,7 +8,7 @@ import {AppHeaderIcon} from "../components/AppHeaderIcon";
 
 export const MainScreen = ({navigation}) => {
     const openPostHandler = (post) => {
-        navigation.navigate('Post', {postId: post.id, date: post.date})
+        navigation.navigate('Post', {postId: post.id, date: post.date, booked: post.booked})
     };
     return (
         <View style={styles.content}>
@@ -23,9 +23,14 @@ export const MainScreen = ({navigation}) => {
 
 MainScreen.navigationOptions = {
     headerTitle: 'Мой блок',
-    headerRight: <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-        <Item title='Take photo' iconName='md-camera' onPress={()=> console.log('Camera')}/>
-    </HeaderButtons>
+    headerRight: () =>
+        <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+            <Item title='Take photo' iconName='md-camera' onPress={() => console.log('Camera')}/>
+        </HeaderButtons>,
+    headerLeft: () =>
+        <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+            <Item title='Take photo' iconName='md-menu' onPress={() => console.log('Menu')}/>
+        </HeaderButtons>
 };
 
 const styles = StyleSheet.create({

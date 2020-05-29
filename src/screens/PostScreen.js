@@ -1,12 +1,18 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {View, Text, StyleSheet, Image, Button, ScrollView, Alert} from 'react-native'
+import {HeaderButtons, Item} from "react-navigation-header-buttons";
+
 import {DATA} from './../data'
 import {THEME} from "../theme";
+import {AppHeaderIcon} from "../components/AppHeaderIcon";
 
 export const PostScreen = ({navigation}) => {
     const postId = navigation.getParam('postId');
     const post = DATA.find(p => p.id === postId);
-    const removeHandler = ()=> {
+    // useEffect(() => {
+    //     navigation.setParams({booked: post.booked})
+    // });
+    const removeHandler = () => {
         Alert.alert(
             "Удаление поста",
             "Вы уверены, что хотите удалить данную запись?",
@@ -15,9 +21,9 @@ export const PostScreen = ({navigation}) => {
                     text: "Отменить",
                     style: "cancel"
                 },
-                { text: "Удалить", onPress: () => console.log("OK Pressed") }
+                {text: "Удалить", onPress: () => console.log("OK Pressed")}
             ],
-            { cancelable: false }
+            {cancelable: false}
         );
     };
     return (
@@ -32,8 +38,14 @@ export const PostScreen = ({navigation}) => {
 };
 PostScreen.navigationOptions = ({navigation}) => {
     const date = navigation.getParam('date');
+    const booked = navigation.getParam('booked');
+    const iconName = booked ? 'md-star' : 'md-star-outline';
     return {
-        headerTitle: 'Пост от ' + new Date(date).toLocaleDateString()
+        headerTitle: 'Пост от ' + new Date(date).toLocaleDateString(),
+        headerRight: () =>
+            <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                <Item title='Take photo' iconName={iconName} onPress={() => console.log('Camera')}/>
+            </HeaderButtons>,
     }
 };
 

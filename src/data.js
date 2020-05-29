@@ -4,7 +4,7 @@ export const DATA = [
         img: 'https://jooinn.com/images/city-1.jpg',
         text: 'Awesome text for post 1',
         date: new Date().toJSON(),
-        booked: true
+        booked: false
     },
     {
         id: '2',
