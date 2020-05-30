@@ -18,14 +18,14 @@ export const DATA = [
         img: 'https://www.calgary.ca/CA/city-manager/scripts/about-us/webparts/images/ourHistory_retina.jpg',
         text: 'Awesome text for post 3',
         date: new Date().toJSON(),
-        booked: true
+        booked: false
     },
     {
         id: '4',
         img: 'https://lh3.googleusercontent.com/proxy/c-zPXHXlGthEjRjAjbwRmCxV6Bq5MZbFYHWw0UJ7TJxev_IDaeJVp5a-JyP3fPx6NENqlRRwU1wjzxYCimCnVAp46G369UR0FnBe911UCVW0RdiqX1-al1OSQBIQlQ',
         text: 'Awesome text for post 4',
         date: new Date().toJSON(),
-        booked: true
+        booked: false
     },
     {
         id: '5',
