@@ -1,5 +1,4 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
 import {HeaderButtons, Item} from 'react-navigation-header-buttons'
 
 import {DATA} from "../data";
@@ -17,15 +16,15 @@ export const MainScreen = ({navigation}) => {
 
 };
 
-MainScreen.navigationOptions = {
+MainScreen.navigationOptions = ({navigation}) => ({
     headerTitle: 'Мой блок',
     headerRight: () =>
         <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-            <Item title='Take photo' iconName='md-camera' onPress={() => console.log('Camera')}/>
+            <Item title='Take photo' iconName='md-camera' onPress={() => navigation.push('Create')}/>
         </HeaderButtons>,
     headerLeft: () =>
         <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-            <Item title='Take photo' iconName='md-menu' onPress={() => console.log('Menu')}/>
+            <Item title='Menu' iconName='md-menu' onPress={() => navigation.toggleDrawer()}/>
         </HeaderButtons>
-};
+});
 

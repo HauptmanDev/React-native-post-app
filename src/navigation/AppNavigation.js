@@ -9,6 +9,9 @@ import {Platform} from "react-native-web";
 import {BookmarkedScreen} from "../screens/BookmarkedScreen";
 import {createBottomTabNavigator} from "react-navigation-tabs";
 import {Ionicons} from "@expo/vector-icons";
+import {createDrawerNavigator} from "react-navigation-drawer";
+import {AboutScreen} from "../screens/AboutScreen";
+import {CreateScreen} from "../screens/CreateScreen";
 
 const navigatorOptions = {
     // initialRouteName: 'Main', по умолчанию первое свойство
@@ -26,6 +29,12 @@ const PostNavigator = createStackNavigator({
 const BookedNavigator = createStackNavigator({
     Booked: BookmarkedScreen,
     Post: PostScreen,
+}, navigatorOptions);
+const AboutNavigator = createStackNavigator({
+    About: AboutScreen,
+}, navigatorOptions);
+const CreateNavigator = createStackNavigator({
+    Create: CreateScreen,
 }, navigatorOptions);
 const bottomTabsConfig = {
     Post: {
@@ -59,4 +68,16 @@ const BottomNavigator = Platform.OS === 'ios' ?
         activeTintColor: '#fff'
     });
 
-export const AppNavigation = createAppContainer(BottomNavigator);
+const MainNavigator = createDrawerNavigator({
+    PostTabs: {
+        screen: BottomNavigator
+    },
+    Create: {
+        screen: CreateNavigator
+    },
+    About: {
+        screen: AboutNavigator
+    },
+
+});
+export const AppNavigation = createAppContainer(MainNavigator);
