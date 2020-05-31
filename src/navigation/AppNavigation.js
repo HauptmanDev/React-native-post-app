@@ -70,14 +70,30 @@ const BottomNavigator = Platform.OS === 'ios' ?
 
 const MainNavigator = createDrawerNavigator({
     PostTabs: {
-        screen: BottomNavigator
+        screen: BottomNavigator,
+        navigationOptions: {
+            drawerLabel: 'Главная',
+            // drawerIcon: <Ionicons name='ios-star'/>
+        }
     },
     Create: {
-        screen: CreateNavigator
+        screen: CreateNavigator,
+        navigationOptions: {
+            drawerLabel: 'Новый пост'
+        }
     },
     About: {
-        screen: AboutNavigator
+        screen: AboutNavigator,
+        navigationOptions: {
+            drawerLabel: 'О приложении'
+        }
     },
-
+}, {
+    contentOptions: {
+        activeTintColor: THEME.MAIN_COLOR,
+        labelStyle: {
+            fontFamily: 'open-bold'
+        }
+    }
 });
 export const AppNavigation = createAppContainer(MainNavigator);

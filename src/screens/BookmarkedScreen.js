@@ -15,15 +15,11 @@ export const BookmarkedScreen = ({navigation}) => {
     )
 };
 
-BookmarkedScreen.navigationOptions = {
-    headerTitle: 'Мой блок',
-    headerRight: () =>
-        <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-            <Item title='Take photo' iconName='md-camera' onPress={() => console.log('Camera')}/>
-        </HeaderButtons>,
+BookmarkedScreen.navigationOptions = ({navigation}) => ({
+    headerTitle: 'Избранное',
     headerLeft: () =>
         <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-            <Item title='Take photo' iconName='md-menu' onPress={() => console.log('Menu')}/>
+            <Item title='Menu' iconName='ios-menu' onPress={() => navigation.toggleDrawer()}/>
         </HeaderButtons>
-};
+});
 

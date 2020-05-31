@@ -3,10 +3,12 @@ import {View, Text, StyleSheet} from 'react-native'
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
 
-export const AboutScreen = () => {
+export const AboutScreen = ({}) => {
     return (
         <View style={styles.content}>
-            <Text>AboutScreen</Text>
+            <Text>Это приложение разработано по учебной программе</Text>
+            <Text>...</Text>
+            <Text>Версия приложения <Text style={styles.version}>1.0.0</Text> </Text>
         </View>
     )
 };
@@ -22,5 +24,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    version: {
+        fontFamily: 'open-bold'
     }
 });
