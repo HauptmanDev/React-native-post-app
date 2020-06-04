@@ -7,7 +7,7 @@ export const AboutScreen = ({}) => {
     return (
         <View style={styles.content}>
             <Text>Это приложение разработано по учебной программе</Text>
-            <Text>...</Text>
+            <Text style={styles.version}>Владилена Минена.</Text>
             <Text>Версия приложения <Text style={styles.version}>1.0.0</Text> </Text>
         </View>
     )
@@ -27,5 +27,5 @@ const styles = StyleSheet.create({
     },
     version: {
         fontFamily: 'open-bold'
-    }
+    },
 });
