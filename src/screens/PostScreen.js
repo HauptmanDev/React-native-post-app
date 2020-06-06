@@ -1,17 +1,16 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useCallback} from 'react'
 import {View, Text, StyleSheet, Image, Button, ScrollView, Alert} from 'react-native'
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 
 import {DATA} from './../data'
 import {THEME} from "../theme";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
+import {useDispatch, useSelector} from "react-redux";
+import {toggleBooked} from "../store/actions/post";
 
 export const PostScreen = ({navigation}) => {
     const postId = navigation.getParam('postId');
     const post = DATA.find(p => p.id === postId);
-    // useEffect(() => {
-    //     navigation.setParams({booked: post.booked})
-    // });
     const removeHandler = () => {
         Alert.alert(
             "Удаление поста",
@@ -26,6 +25,18 @@ export const PostScreen = ({navigation}) => {
             {cancelable: false}
         );
     };
+    const booked = useSelector(state => state.post.bookedPosts.some(post => post.id === postId));
+    const dispatch = useDispatch();
+    useEffect(() => {
+        navigation.setParams({booked})
+    }, [booked]);
+    const toggleHandler = useCallback(() => {
+        console.log('booked');
+        dispatch(toggleBooked(postId))
+    }, [dispatch, postId]);
+    useEffect(() => {
+        navigation.setParams({toggleHandler})
+    }, [toggleHandler]);
     return (
         <ScrollView style={styles.content}>
             <Image source={{uri: post.img}} style={styles.image}/>
@@ -39,12 +50,13 @@ export const PostScreen = ({navigation}) => {
 PostScreen.navigationOptions = ({navigation}) => {
     const date = navigation.getParam('date');
     const booked = navigation.getParam('booked');
+    const toggleHandler = navigation.getParam('toggleHandler');
     const iconName = booked ? 'md-star' : 'md-star-outline';
     return {
         headerTitle: 'Пост от ' + new Date(date).toLocaleDateString(),
         headerRight: () =>
             <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-                <Item title='Take photo' iconName={iconName} onPress={() => console.log('Camera')}/>
+                <Item title='Take photo' iconName={iconName} onPress={toggleHandler}/>
             </HeaderButtons>,
     }
 };
