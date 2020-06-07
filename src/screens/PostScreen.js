@@ -2,15 +2,25 @@ import React, {useEffect, useCallback} from 'react'
 import {View, Text, StyleSheet, Image, Button, ScrollView, Alert} from 'react-native'
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 
-import {DATA} from './../data'
 import {THEME} from "../theme";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
 import {useDispatch, useSelector} from "react-redux";
-import {toggleBooked} from "../store/actions/post";
+import {removePost, toggleBooked} from "../store/actions/post";
 
 export const PostScreen = ({navigation}) => {
+    const dispatch = useDispatch();
     const postId = navigation.getParam('postId');
-    const post = DATA.find(p => p.id === postId);
+    const post = useSelector(state => state.post.allPosts.find(post => post.id === postId));
+    const booked = useSelector(state => state.post.bookedPosts.some(post => post.id === postId));
+    const toggleHandler = useCallback(() => {
+        dispatch(toggleBooked(postId))
+    }, [dispatch, postId]);
+    useEffect(() => {
+        navigation.setParams({toggleHandler})
+    }, [toggleHandler]);
+    useEffect(() => {
+        navigation.setParams({booked})
+    }, [booked]);
     const removeHandler = () => {
         Alert.alert(
             "Удаление поста",
@@ -20,23 +30,20 @@ export const PostScreen = ({navigation}) => {
                     text: "Отменить",
                     style: "cancel"
                 },
-                {text: "Удалить", onPress: () => console.log("OK Pressed")}
+                {
+                    text: "Удалить", onPress: () => {
+                        navigation.navigate('Main');
+                        dispatch(removePost(postId))
+                    }
+                }
             ],
             {cancelable: false}
         );
     };
-    const booked = useSelector(state => state.post.bookedPosts.some(post => post.id === postId));
-    const dispatch = useDispatch();
-    useEffect(() => {
-        navigation.setParams({booked})
-    }, [booked]);
-    const toggleHandler = useCallback(() => {
-        console.log('booked');
-        dispatch(toggleBooked(postId))
-    }, [dispatch, postId]);
-    useEffect(() => {
-        navigation.setParams({toggleHandler})
-    }, [toggleHandler]);
+    if(!post){
+        return null
+    }
+
     return (
         <ScrollView style={styles.content}>
             <Image source={{uri: post.img}} style={styles.image}/>
