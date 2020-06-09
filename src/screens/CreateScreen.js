@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import {
     View,
     Text,
@@ -15,20 +15,24 @@ import {AppHeaderIcon} from "../components/AppHeaderIcon";
 import {THEME} from "../theme";
 import {useDispatch} from "react-redux";
 import {createPost} from "../store/actions/post";
+import {PhotoPiker} from "../components/PhotoPiker";
 
 export const CreateScreen = ({navigation}) => {
     const dispatch = useDispatch();
     const [text, setText] = useState('');
-    const img = 'https://jooinn.com/images/city-1.jpg';
+    const imgRef = useRef(null);
     const saveHandler = () => {
         const post = {
-            date: new Date.now().toJSON(),
+            date: new Date().toJSON(),
             text: text,
-            img: img,
+            img: imgRef.current,
             booked: false
         };
         dispatch(createPost(post));
         navigation.navigate('Main')
+    };
+    const photoPickHandler = uri => {
+        imgRef.current = uri
     };
     return (
         <ScrollView>
@@ -41,8 +45,11 @@ export const CreateScreen = ({navigation}) => {
                                onChangeText={setText}
                                multiline
                     />
-                    <Image style={styles.image} source={{uri: img}}/>
-                    <Button title='Создать пост' color={THEME.MAIN_COLOR} onPress={saveHandler}/>
+                    <PhotoPiker onPick={photoPickHandler}/>
+                    <Button title='Создать пост'
+                            color={THEME.MAIN_COLOR}
+                            onPress={saveHandler}
+                            disabled={!text}/>
                 </View>
             </TouchableWithoutFeedback>
         </ScrollView>

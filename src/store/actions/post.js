@@ -20,7 +20,7 @@ export const removePost = id => {
     }
 };
 export const createPost = post => {
-    post.id = new Date.now().toString();
+    post.id = new Date().toString();
     return {
         type: CREATE_POST,
         payload: post
