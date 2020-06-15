@@ -15,7 +15,7 @@ async function askForPermissions() {
     return true
 }
 
-export const PhotoPiker = ({onPick}) => {
+export const PhotoPicker = ({onPick}) => {
     const [image, setImage] = useState(null);
     const takePhoto = async () => {
         const hasPermissions = await askForPermissions();

@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import {HeaderButtons, Item} from 'react-navigation-header-buttons'
 import {useDispatch, useSelector} from "react-redux";
+import {View, StyleSheet, ActivityIndicator} from 'react-native'
 
 import {Post} from "../components/Post";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
@@ -11,15 +12,18 @@ export const MainScreen = ({navigation}) => {
     const openPostHandler = (post) => {
         navigation.navigate('Post', {postId: post.id, date: post.date, booked: post.booked})
     };
-    const allPosts = useSelector(state => state.post.allPosts);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(loadPosts())
     }, [dispatch]);
+    const allPosts = useSelector(state => state.post.allPosts);
+    const loading = useSelector(state => state.post.loading);
+    if (loading) {
+        return <View style={styles.center}><ActivityIndicator/></View>
+    }
     return (
         <PostList data={allPosts} onOpen={openPostHandler}/>
     )
-
 };
 
 MainScreen.navigationOptions = ({navigation}) => ({
@@ -32,5 +36,13 @@ MainScreen.navigationOptions = ({navigation}) => ({
         <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
             <Item title='Menu' iconName='md-menu' onPress={() => navigation.toggleDrawer()}/>
         </HeaderButtons>
+});
+
+const styles = StyleSheet.create({
+    center: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 
