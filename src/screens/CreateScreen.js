@@ -64,7 +64,7 @@ export const CreateScreen = ({navigation}) => {
 
 CreateScreen.navigationOptions = ({navigation}) => ({
     headerTitle: 'Создать пост',
-    headerLeft: (
+    headerLeft: () =>
         <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
             <Item
                 title='Toggle Drawer'
@@ -72,7 +72,6 @@ CreateScreen.navigationOptions = ({navigation}) => ({
                 onPress={() => navigation.toggleDrawer()}
             />
         </HeaderButtons>
-    )
 });
 
 const styles = StyleSheet.create({

@@ -2,7 +2,7 @@ import React from 'react'
 import {View, FlatList, StyleSheet, Text} from "react-native";
 import {Post} from "./Post";
 
-export const PostList = ({data, onOpen}) => {
+export const PostList = ({data = [], onOpen}) => {
     return (
         <View>
             {!data.length ?

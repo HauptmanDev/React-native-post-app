@@ -1,13 +1,13 @@
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabase('post.db');
+const db = SQLite.openDatabase('posts.db');
 
 export class DB {
     static init() {
         return new Promise((resolve, reject) => {
             db.transaction(tx => {
                 tx.executeSql(
-                    'CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY NOT NULL, text TEXT NOT NULL, img TEXT, date TEXT, booked INT)',
+                    'CREATE TABLE IF NOT EXISTS posts (id INTEGER NOT NULL PRIMARY KEY, text TEXT NOT NULL, date TEXT NOT NULL, img TEXT, booked INT)',
                     [],
                     resolve,
                     (_, error) => reject(error)
@@ -29,12 +29,12 @@ export class DB {
         })
     }
 
-    static createPost({ text, date, booked, img }) {
+    static createPost({text, date, booked, img}) {
         return new Promise((resolve, reject) => {
             db.transaction(tx => {
                 tx.executeSql(
-                    `INSERT INTO posts (text, date, booked, img) VALUES (?, ?, ?, ?)`,
-                    [text, date, 0, img],
+                    "INSERT INTO posts (text , date , booked , img) VALUES (?, ?, ?, ?)",
+                    [text, date, booked, img],
                     (_, result) => resolve(result.insertId),
                     (_, error) => reject(error)
                 )
