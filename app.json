@@ -1,19 +1,18 @@
 {
   "expo": {
-    "name": "react-native-demo",
-    "slug": "react-native-demo",
+    "name": "Self Blog",
+    "slug": "rn-self-blog",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "default",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/rn-icon.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/rn-splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#242832"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,7 +21,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hauptmandev.self-blog-rn-app",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.hauptmandev.self_blog_rn_app",
+      "versionCode": 1,
+      "permissions": ["CAMERA", "WHITE_EXTERNAL_STORAGE"]
     }
   }
 }
